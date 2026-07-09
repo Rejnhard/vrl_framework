@@ -1,0 +1,35 @@
+# 1. Byte-compiled / Cache
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
+tmp/
+*.egg-info/
+
+# 2. Version Control
+.git/
+
+# 3. Virtual Environments & Local Secrets
+.venv/
+venv/
+env/
+.env
+
+# 4. Telemetry & Experiment Outputs
+# Excludes the entire runs directory (logs, metric .png plots, LMDB replays, .pt weights)
+outputs/
+vrl_framework/outputs/
+wandb/
+
+# 5. Global Binary Blockers (Fallback)
+*.pt
+*.pth
+*.mdb
+
+# 6. Data & Datasets
+data/
+*.raw
+
+# 7. Build Artifacts
+build/
+dist/

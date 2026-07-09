@@ -1,0 +1,63 @@
+# VRL Framework Git Exclusions
+
+# 1. Byte-compiled / Optimized / DLL Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dylib
+
+# 2. Model Checkpoints & Replay Buffers (LMDB)
+# Prevent committing large binaries, uncompressed state dicts, and memory-mapped DBs.
+*.pt
+*.pth
+*.onnx
+*.mdb
+
+# 3. Experiment Tracking & Artifacts
+# W&B logs and local telemetry.
+wandb/
+.wandb/
+
+# Ignore all dynamic execution outputs: weights, replay DBs, metrics (.png), and logs (.log)
+# Preserve directory structures using .gitkeep
+vrl_framework/outputs/*
+!vrl_framework/outputs/**/.gitkeep
+outputs/*
+!outputs/**/.gitkeep
+*.log
+
+# 4. Testing & Code Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+tmp/
+
+# 5. Virtual Environments & Local Configuration
+venv/
+env/
+.env
+.venv
+Pipfile.lock
+poetry.lock
+
+# 6. OS & Editor Specific Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 7. Data & Datasets
+# Ignore data contents but preserve directory structures
+data/*
+!data/**/.gitkeep
+*.raw
+
+# 8. Python Build Artifacts
+*.egg-info/
+build/
+dist/*~

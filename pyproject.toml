@@ -1,0 +1,85 @@
+
+# VRL Framework - Build System & Package Configuration
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vrl_framework"
+version = "0.1.0"
+description = "VRL codebase focusing on custom spatial geometries and direct CUDA physics."
+authors = [
+    { name = "Jacek Rejnhard", email = "kontakt@rejnhard.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# Conda environment.yml manages strict CUDA ABI matches.
+# PyPI dependencies kept barebones for fallback execution.
+dependencies = [
+    "torch>=2.2.0",
+    "numpy>=1.26.0",
+    "pydantic>=2.0.0",
+    "lmdb>=2.2.1",
+    "pyzmq>=25.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-benchmark>=4.0",
+    "hypothesis>=6.0",
+    "pipreqs",
+    "black>=23.0",
+    "isort>=5.0",
+    "flake8>=7.3.0",
+    "autoflake>=2.3.3",
+    "mypy>=2.1.0",
+    "types-PyYAML"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+filterwarnings = [
+    # Silence 3.12 deprecation spam from third-party libs (wandb/protobuf)
+    "ignore:.*uses PyType_Spec with a metaclass.*:DeprecationWarning",
+    "ignore:.*pkg_resources is deprecated as an API.*:DeprecationWarning"
+]
+testpaths = [
+    "tests/unit",
+    "tests/integration",
+    "tests/sanity",
+    "tests/e2e",
+    "tests/property",
+    "tests/performance",
+    "tests/reproducibility"
+]
+pythonpath = [
+    "src",
+    "."
+]
+
+[tool.black]
+line-length = 119
+target-version = ['py310']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.git
+  | \.venv
+  | __pycache__
+)/
+'''
